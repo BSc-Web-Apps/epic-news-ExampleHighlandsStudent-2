@@ -4,6 +4,7 @@ import { Button } from '#app/components/ui/button.tsx'
 import { UserDropdown } from '#app/components/user-dropdown.tsx'
 import { useOptionalUser } from '#app/utils/user.ts'
 import logo from '~/assets/png/epic-news-logo.png'
+import HeroCallToAction from '~/components/organisms/Hero/HeroCallToAction.tsx'
 
 export default function HeaderWithSearch() {
 	const matches = useMatches()
