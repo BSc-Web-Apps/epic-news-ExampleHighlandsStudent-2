@@ -23,7 +23,7 @@ export default function Document({
 	children,
 	honeyProps,
 	nonce,
-	theme = 'light',
+	theme = 'dark',
 	env = {},
 }: DocumentProps) {
 	const allowIndexing = ENV.ALLOW_INDEXING !== 'false'
