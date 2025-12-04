@@ -97,6 +97,7 @@ export async function action({ request }: ActionFunctionArgs) {
 		id: articleId,
 		title,
 		content,
+		categoryId,
 		imageUpdates = [],
 		newImages = [],
 	} = submission.value
@@ -109,11 +110,13 @@ export async function action({ request }: ActionFunctionArgs) {
 			ownerId: userId,
 			title,
 			content,
+			categoryId,
 			images: { create: newImages },
 		},
 		update: {
 			title,
 			content,
+			categoryId,
 			images: {
 				deleteMany: { id: { notIn: imageUpdates.map((i) => i.id) } },
 				updateMany: imageUpdates.map((updates) => ({
