@@ -13,6 +13,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 	const filteredArticles = await prisma.article.findMany({
 		where: {
+			isPublished: true,
 			category: {
 				slug: category, // Retrieves only articles in the specified category
 			},
@@ -31,21 +32,26 @@ export async function loader({ params }: LoaderFunctionArgs) {
 // Client code
 export default function NewsCategoryPage() {
 	const { filteredArticles, categoryTitle } = useLoaderData<typeof loader>()
+	const hasArticles = filteredArticles.length > 0
 
 	return (
 		<div className="container py-16">
 			<h2 className="text-h2">{categoryTitle}</h2>
 
 			<div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-				{filteredArticles.map((article) => (
-					<ArticleCard
-						key={article.id}
-						articleId={article.id}
-						title={article.title}
-						category={article.category?.name}
-						objectKey={article.images[0]?.objectKey}
-					/>
-				))}
+				{hasArticles ? (
+					filteredArticles.map((article) => (
+						<ArticleCard
+							key={article.id}
+							articleId={article.id}
+							title={article.title}
+							category={article.category?.name}
+							objectKey={article.images[0]?.objectKey}
+						/>
+					))
+				) : (
+					<div>There are no published articles in this category</div>
+				)}
 			</div>
 		</div>
 	)
