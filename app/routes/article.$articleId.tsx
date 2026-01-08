@@ -1,10 +1,10 @@
-import { type LoaderFunctionArgs, data, useLoaderData } from 'react-router'
+import { prisma } from '#app/utils/db.server.ts'
 import { invariant } from '@epic-web/invariant'
-import { prisma } from '~/utils/db.server.ts'
-import SingleArticle from '#app/components/organisms/SingleArticle.tsx'
+import { type LoaderFunctionArgs, data, useLoaderData } from 'react-router'
 
 export async function loader({ params }: LoaderFunctionArgs) {
 	const { articleId } = params
+
 	invariant(typeof articleId === 'string', 'No article ID provided')
 
 	// Fetch the article by ID
@@ -37,5 +37,14 @@ const ArticleNotFound = () => {
 export default function ArticlePage() {
 	const { article } = useLoaderData<typeof loader>()
 
-	return article ? <SingleArticle article={article} /> : <ArticleNotFound />
+	return article ? (
+		<div className="container py-16">
+			<h2 className="text-h2 pb-8">{article.title}</h2>
+			<p>{article.category?.name || 'General News'}</p>
+			<p>{article.content}</p>
+			<p>{article.owner.name}</p>
+		</div>
+	) : (
+		<ArticleNotFound />
+	)
 }

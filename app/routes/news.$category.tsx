@@ -1,8 +1,8 @@
 import { invariant } from '@epic-web/invariant'
 import { type LoaderFunctionArgs, data, useLoaderData } from 'react-router'
-import { toTitleCase } from '~/utils/stringUtils.ts'
-import { prisma } from '~/utils/db.server.ts'
 import ArticleCard from '#app/components/organisms/ArticleCard.tsx'
+import { prisma } from '~/utils/db.server.ts'
+import { toTitleCase } from '~/utils/stringUtils.ts'
 
 // Server code
 export async function loader({ params }: LoaderFunctionArgs) {
