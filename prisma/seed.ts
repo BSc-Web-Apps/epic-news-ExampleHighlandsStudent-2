@@ -250,6 +250,16 @@ async function seed() {
 
 	console.timeEnd(`🐨 Created admin user "kody"`)
 
+	// Create article categories
+	console.time(`🗃️  Created article categories...`)
+	const articleCategories = [
+		{ name: 'Technology', slug: 'technology' },
+		{ name: 'Entertainment', slug: 'entertainment' },
+		{ name: 'Business', slug: 'business' },
+	]
+	await prisma.articleCategory.createMany({ data: articleCategories })
+	console.timeEnd(`🗃️  Created article categories...`)
+
 	console.timeEnd(`🌱 Database has been seeded`)
 }
 
